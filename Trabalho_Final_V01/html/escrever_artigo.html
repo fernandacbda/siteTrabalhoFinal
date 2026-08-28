@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Nome Site</title>
+</head>
+<body>
+	<header> <!-- Alinhados lado ao lado quando usar CSS -->
+		<div>
+			<h1><a href="index.html">Nome Site</a></h1>
+		</div>
+		<div>
+			<ul>
+				<li>
+					<a href="signup.html">
+						Cadastre-se.
+					</a>
+				</li>
+				<li>
+					<a href="login.html">
+						Entrar.
+					</a>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<div>
+		<h2>Escrever Artigo</h2>
+		<form>
+			<label>Título: </label>
+			<input type="text" name="nomeArtigo"><br><br>
+			<label>Resumo: </label>
+			<input type="text" name="resumoArtigo"><br><br>
+			<label>Texo do Artigo: </label>
+			<input type="text" name="textoArtigo"><br><br>
+			<label>Imagem de Capa: </label>
+			<input type="button" name="imagemArtigo"><br><br> <!-- Restringir para JPG e PNG, tamanho maximo 8mb -->
+			<input type="submit"> <!-- Manda os dados pro banco e cria uma pagina com o artigo -->
+		</form>
+	</div>
+</body>
+</html>
