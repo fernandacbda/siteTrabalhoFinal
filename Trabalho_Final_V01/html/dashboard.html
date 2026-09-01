@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Nome Site</title>
+</head>
+<body>
+	<header> <!-- Alinhados lado ao lado quando usar CSS -->
+		<div>
+			<h1><a href="index.html">Nome Site</a></h1>
+		</div>
+		<div> <!-- Menu de usuário logado, o JS troca esse menu pelo de visitante quando não tem login -->
+			<ul>
+				<li>
+					<a href="tela_principal.html">
+						Artigos.
+					</a>
+				</li>
+				<li>
+					<a href="escrever_artigo.html">
+						Escrever Artigo.
+					</a>
+				</li>
+				<li>
+					<a href="perfil_usuario.html">
+						Meu Perfil.
+					</a>
+				</li>
+				<li>
+					<a href="index.html">
+						Sair.
+					</a>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<div>
+		<h2>
+			Dashboard.
+		</h2>
+		<p>
+			Olá, Nome do Usuário! Aqui você acompanha seus artigos e avaliações.
+		</p>
+		<button type="button"> <!-- Programar ação do botão no JS, leva para escrever_artigo.html -->
+			Escrever novo artigo!
+		</button>
+	</div>
+	<div> <!-- Números gerais, alinhados lado a lado quando usar CSS. Os valores vêm do banco pelo JS -->
+		<div>
+			<h3>Artigos Publicados</h3>
+			<p>0</p>
+		</div>
+		<div>
+			<h3>Rascunhos</h3>
+			<p>0</p>
+		</div>
+		<div>
+			<h3>Visualizações</h3>
+			<p>0</p>
+		</div>
+		<div>
+			<h3>Média das Avaliações</h3>
+			<div>
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staroff.png" width="25px">
+			</div>
+		</div>
+	</div>
+	<div> <!-- Container da tabela, vai usar JS para inserir as linhas do banco depois -->
+		<h2>Meus Artigos</h2>
+		<table border="1"> <!-- Tirar o border e formatar a tabela quando usar CSS -->
+			<tr>
+				<th>Título</th>
+				<th>Data de Publicação</th>
+				<th>Avaliação</th>
+				<th>Visualizações</th>
+				<th>Situação</th>
+				<th>Ações</th>
+			</tr>
+			<tr>
+				<td>
+					<a href="artigo.html">Título do Artigo.</a>
+				</td>
+				<td>Data de Publicação</td>
+				<td>
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+				</td>
+				<td>0</td>
+				<td>Publicado</td>
+				<td> <!-- Programar ação dos botões no JS, o excluir precisa pedir confirmação -->
+					<button type="button">Editar</button>
+					<button type="button">Excluir</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="artigo.html">Título do Artigo.</a>
+				</td>
+				<td>Data de Publicação</td>
+				<td>
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+				</td>
+				<td>0</td>
+				<td>Publicado</td>
+				<td>
+					<button type="button">Editar</button>
+					<button type="button">Excluir</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="escrever_artigo.html">Título do Artigo.</a>
+				</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td>Rascunho</td>
+				<td>
+					<button type="button">Editar</button>
+					<button type="button">Excluir</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div> <!-- Container dos comentários, vai usar JS para inserir os dados do banco depois -->
+		<h2>Últimas Avaliações Recebidas</h2>
+		<ul>
+			<li>
+				<p>Nome do Usuário avaliou o artigo Título do Artigo.</p>
+				<div>
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+				</div>
+				<p>Data da Avaliação</p>
+			</li>
+			<li>
+				<p>Nome do Usuário avaliou o artigo Título do Artigo.</p>
+				<div>
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+				</div>
+				<p>Data da Avaliação</p>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

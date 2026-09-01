@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Nome Site</title>
+</head>
+<body>
+	<header> <!-- Alinhados lado ao lado quando usar CSS -->
+		<div>
+			<h1><a href="index.html">Nome Site</a></h1>
+		</div>
+		<div>
+			<ul>
+				<li>
+					<a href="signup.html">
+						Cadastre-se.
+					</a>
+				</li>
+				<li>
+					<a href="login.html">
+						Entrar.
+					</a>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<div>
+		<h2>
+			Artigos.
+		</h2>
+		<p>
+			Veja o que nossos usuários estão falando sobre os restaurantes.
+		</p>
+	</div>
+	<div> <!-- Barra de busca e filtros, alinhados lado a lado quando usar CSS -->
+		<form>
+			<label>Buscar: </label>
+			<input type="text" name="busca">
+			<label>Ordenar por: </label>
+			<select name="ordem"> <!-- A ordenação da lista é feita no JS -->
+				<option value="recentes">Mais Recentes</option>
+				<option value="avaliacao">Melhor Avaliados</option>
+				<option value="titulo">Título (A-Z)</option>
+			</select>
+			<input type="submit" value="Buscar">
+		</form>
+	</div>
+	<div> <!-- Container da lista, vai usar JS para inserir os artigos do banco depois -->
+		<div> <!-- Alinhados em grade quando usar CSS -->
+			<img src="../img/pizza.jpg" width="200px">
+			<div>
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+			</div>
+			<h3>
+				<a href="artigo.html">Título do Artigo.</a>
+			</h3>
+			<p>
+				Resumo do Artigo.
+			</p>
+			<p>Nome do Autor</p>
+			<p>Data de Publicação</p>
+		</div>
+		<div>
+			<img src="../img/sushi.jpg" width="200px">
+			<div>
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staroff.png" width="25px">
+				<img src="../img/staroff.png" width="25px">
+			</div>
+			<h3>
+				<a href="artigo.html">Título do Artigo.</a>
+			</h3>
+			<p>
+				Resumo do Artigo.
+			</p>
+			<p>Nome do Autor</p>
+			<p>Data de Publicação</p>
+		</div>
+		<div>
+			<img src="../img/lasanha.jpg" width="200px">
+			<div>
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staroff.png" width="25px">
+			</div>
+			<h3>
+				<a href="artigo.html">Título do Artigo.</a>
+			</h3>
+			<p>
+				Resumo do Artigo.
+			</p>
+			<p>Nome do Autor</p>
+			<p>Data de Publicação</p>
+		</div>
+		<div>
+			<img src="../img/cafe.jpg" width="200px">
+			<div>
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staroff.png" width="25px">
+				<img src="../img/staroff.png" width="25px">
+			</div>
+			<h3>
+				<a href="artigo.html">Título do Artigo.</a>
+			</h3>
+			<p>
+				Resumo do Artigo.
+			</p>
+			<p>Nome do Autor</p>
+			<p>Data de Publicação</p>
+		</div>
+		<div>
+			<img src="../img/restaurante.jpg" width="200px">
+			<div>
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staroff.png" width="25px">
+			</div>
+			<h3>
+				<a href="artigo.html">Título do Artigo.</a>
+			</h3>
+			<p>
+				Resumo do Artigo.
+			</p>
+			<p>Nome do Autor</p>
+			<p>Data de Publicação</p>
+		</div>
+		<div>
+			<img src="../img/pizza.jpg" width="200px">
+			<div>
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staroff.png" width="25px">
+				<img src="../img/staroff.png" width="25px">
+				<img src="../img/staroff.png" width="25px">
+			</div>
+			<h3>
+				<a href="artigo.html">Título do Artigo.</a>
+			</h3>
+			<p>
+				Resumo do Artigo.
+			</p>
+			<p>Nome do Autor</p>
+			<p>Data de Publicação</p>
+		</div>
+	</div>
+	<div> <!-- Paginação, os números vão ser gerados no JS conforme a quantidade de artigos -->
+		<ul>
+			<li>
+				<a href="tela_principal.html">Anterior</a>
+			</li>
+			<li>
+				<a href="tela_principal.html">1</a>
+			</li>
+			<li>
+				<a href="tela_principal.html">2</a>
+			</li>
+			<li>
+				<a href="tela_principal.html">3</a>
+			</li>
+			<li>
+				<a href="tela_principal.html">Próxima</a>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

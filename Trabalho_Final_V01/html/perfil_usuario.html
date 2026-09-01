@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Nome Site</title>
+</head>
+<body>
+	<header> <!-- Alinhados lado ao lado quando usar CSS -->
+		<div>
+			<h1><a href="index.html">Nome Site</a></h1>
+		</div>
+		<div> <!-- Menu de usuário logado, o JS troca esse menu pelo de visitante quando não tem login -->
+			<ul>
+				<li>
+					<a href="tela_principal.html">
+						Artigos.
+					</a>
+				</li>
+				<li>
+					<a href="escrever_artigo.html">
+						Escrever Artigo.
+					</a>
+				</li>
+				<li>
+					<a href="dashboard.html">
+						Dashboard.
+					</a>
+				</li>
+				<li>
+					<a href="index.html">
+						Sair.
+					</a>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<div> <!-- Foto e dados alinhados lado a lado quando usar CSS -->
+		<div>
+			<img src="../img/restaurante.jpg" width="150px"> <!-- Foto de perfil, imagem padrão até o usuário enviar a dele -->
+		</div>
+		<div>
+			<h2>
+				Nome do Usuário
+			</h2>
+			<p>Email do Usuário</p>
+			<p>Membro desde: Data de Cadastro</p>
+			<p>
+				Biografia do Usuário.
+			</p>
+		</div>
+	</div>
+	<div> <!-- Resumo do perfil, alinhados lado a lado quando usar CSS -->
+		<div>
+			<h3>Artigos Publicados</h3>
+			<p>0</p>
+		</div>
+		<div>
+			<h3>Média das Avaliações</h3>
+			<div>
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staroff.png" width="25px">
+			</div>
+		</div>
+		<div>
+			<h3>Restaurantes Avaliados</h3>
+			<p>0</p>
+		</div>
+	</div>
+	<div>
+		<h2>Editar Perfil</h2>
+		<form>
+			<label>Nome: </label>
+			<input type="text" name="nome"><br><br>
+			<label>Email: </label>
+			<input type="email" name="email"><br><br>
+			<label>Biografia: </label>
+			<input type="text" name="bio"><br><br>
+			<label>Foto de Perfil: </label>
+			<input type="button" name="foto"><br><br> <!-- Restringir para JPG e PNG, tamanho maximo 8mb -->
+			<input type="submit"> <!-- Atualiza os dados do usuário no banco -->
+		</form>
+	</div>
+	<div>
+		<h2>Alterar Senha</h2>
+		<form>
+			<label>Senha Atual: </label>
+			<input type="password" name="senhaAtual"><br><br>
+			<label>Nova Senha: </label>
+			<input type="password" name="senhaNova"><br><br>
+			<label>Confirmar Nova Senha: </label>
+			<input type="password" name="senhaNovaC"><br><br>
+			<input type="submit"> <!-- Conferir se as duas senhas novas são iguais no JS -->
+		</form>
+	</div>
+	<div> <!-- Container dos artigos do usuário, vai usar JS para inserir os artigos do banco depois -->
+		<h2>Meus Artigos</h2>
+		<div> <!-- Alinhados em grade quando usar CSS -->
+			<img src="../img/pizza.jpg" width="200px">
+			<div>
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+			</div>
+			<h3>
+				<a href="artigo.html">Título do Artigo.</a>
+			</h3>
+			<p>
+				Resumo do Artigo.
+			</p>
+			<p>Data de Publicação</p>
+		</div>
+		<div>
+			<img src="../img/sushi.jpg" width="200px">
+			<div>
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staron.png" width="25px">
+				<img src="../img/staroff.png" width="25px">
+				<img src="../img/staroff.png" width="25px">
+			</div>
+			<h3>
+				<a href="artigo.html">Título do Artigo.</a>
+			</h3>
+			<p>
+				Resumo do Artigo.
+			</p>
+			<p>Data de Publicação</p>
+		</div>
+	</div>
+</body>
+</html>
