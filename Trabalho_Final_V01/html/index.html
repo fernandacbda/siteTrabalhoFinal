@@ -4,93 +4,107 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Nome Site</title>
+	<link rel="stylesheet" href="../css/index.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Solway:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
-	<header> <!-- Alinhados lado ao lado quando usar CSS -->
-		<div>
-			<h1><a href="index.html">Nome Site</a></h1>
-		</div>
-		<div>
+<body class="solway-regular">
+	<header class="menu_header"> <!-- Alinhados lado ao lado quando usar CSS -->
+		<div class="menu_container">
+			<a href="index.html" class="nome_site solway-bold" >
+				Nome Site
+			</a>
 			<ul>
 				<li>
 					<a href="signup.html">
-						Cadastre-se.
+						Cadastre-se
 					</a>
 				</li>
 				<li>
 					<a href="login.html">
-						Entrar.
+						Entrar
 					</a>
 				</li>
 			</ul>
 		</div>
 	</header>
+	<main class="page_container">
+		<section class="hero_container">
+			<div class="hero_text">
+				<h2>
+					A Gastronomia Humanizada.
+				</h2>
+				<p>
+					Somos um forum de avaliações de restaurantes.
+					Aqui é possível escrever como foi sua exeperiência nos restaurantes listados, avalia-los e compartilhar suas recomendações com os usuários.
+				</p>
+				<button type="button"> <!-- Programar ação do botão no JS -->
+					Venha nos conhecer!
+				</button>
+			</div>
+			<div class="hero_image">  <!-- Imagem alinha ao lado quando usar CSS -->
+				<img src="../img/pagprin.jpg" width="400px">
+			</div>
+		</section>
+		<section class="article_grid">
+			<div class="article_card"> 
+				<img src="../img/pizza.jpg" width="200px">
+				<div>
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+				</div>
+				<h3>
+					Título do Artigo.
+				</h3>
+				<p>
+					Resumo do Artigo.
+				</p>
+			</div>
+			<div class="article_card">
+				<img src="../img/sushi.jpg" width="200px">
+				<div>
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+				</div>
+				<h3>
+					Título do Artigo.
+				</h3>
+				<p>
+					Resumo do Artigo.
+				</p>
+			</div>
+			<div class="article_card">
+				<img src="../img/lasanha.jpg" width="200px">
+				<div>
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+				</div>
+				<h3>
+					Título do Artigo.
+				</h3>
+				<p>
+					Resumo do Artigo.
+				</p>
+			</div>
+		</section>
+	</main>
 	<div>
-		<div>
-			<h2>
-				A Gastronomia Humanizada.
-			</h2>
-			<p>
-				Somos um forum de avaliações de restaurantes.
-				Aqui é possível escrever como foi sua exeperiência nos restaurantes listados, avalia-los e compartilhar suas recomendações com os usuários.
-			</p>
-			<button type="button"> <!-- Programar ação do botão no JS -->
-				Venha nos conhecer!
-			</button>
-		</div>
-		<div>  <!-- Imagem alinha ao lado quando usar CSS -->
-			<img src="../img/pagprin.jpg" width="400px">
-		</div>
+		
+		
 	</div>
 	<div> <!-- Alinhados lado ao lado quando usar CSS -->
-		<div> 
-			<img src="../img/pizza.jpg" width="200px">
-			<div>
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-			</div>
-			<h3>
-				Título do Artigo.
-			</h3>
-			<p>
-				Resumo do Artigo.
-			</p>
-		</div>
-		<div>
-			<img src="../img/sushi.jpg" width="200px">
-			<div>
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staroff.png" width="25px">
-				<img src="../img/staroff.png" width="25px">
-			</div>
-			<h3>
-				Título do Artigo.
-			</h3>
-			<p>
-				Resumo do Artigo.
-			</p>
-		</div>
-		<div>
-			<img src="../img/lasanha.jpg" width="200px">
-			<div>
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staroff.png" width="25px">
-			</div>
-			<h3>
-				Título do Artigo.
-			</h3>
-			<p>
-				Resumo do Artigo.
-			</p>
-		</div>
+		
 	</div>
 </body>
 </html>
