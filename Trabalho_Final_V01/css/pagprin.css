@@ -122,21 +122,24 @@
 }
 
 .pag_container {
+    width: 100%;
     margin-top: 20px;
 }
 
 .pag_container ul {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
     list-style: none;
     margin: 0;
-    padding: 0 400px;
+    padding: 0 20px;
     color: #292929;
 }
 
 .pag_container a {
+    display: block;
     text-decoration: none;
     color: #292929;
     padding: 15px 20px;
@@ -146,4 +149,20 @@
 .pag_container a:hover {
     background-color: #ddd;
     transition: background-color 0.2s ease;
+}
+
+@media (max-width: 600px) {
+    .pag_container ul {
+        gap: 4px;
+    }
+
+    .pag_container a {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    /* No celular, mostra só Anterior, 1, 2, 3, 10 e Próxima */
+    .pag_container li:nth-child(n+5):nth-child(-n+10) {
+        display: none;
+    }
 }
