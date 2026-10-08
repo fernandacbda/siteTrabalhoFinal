@@ -113,14 +113,6 @@ body {
     .article_grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
-    .dashboard_summary {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .profile_summary {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 @media (max-width: 1000px) {
@@ -143,20 +135,7 @@ body {
         order: 2;
     }
 
-    .profile_header {
-        flex-direction: column;
-    }
-
-    .profile_forms {
-        grid-template-columns: 1fr;
-    }
-
-    .article_list,
-    .user_articles {
-        grid-template-columns: 1fr;
-    }
-
-    .search_container {
+    .sc_container {
         flex-direction: column;
         align-items: stretch;
     }
@@ -175,9 +154,7 @@ body {
         justify-content: center;
     }
 
-    .article_grid,
-    .profile_summary,
-    .dashboard_summary {
+    .article_grid {
         grid-template-columns: 1fr;
     }
 }
