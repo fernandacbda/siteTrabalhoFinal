@@ -1,0 +1,86 @@
+.hero_container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 20px 20px 20px;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    font-size: 28px;
+    color: #292929;
+}
+
+.hero_text,
+.hero_image {
+    flex: 1;
+}
+
+.hero_text > a {
+    display: inline-block;
+    margin-top: 25px;
+    font-size: 36px;
+    background-color: #292929;
+    padding: 15px 30px;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    text-decoration: none;
+}
+
+.hero_text > a:hover {
+    background-color: #ddd;
+    color: #292929;
+    transition: background-color 0.2s ease;
+}
+
+.hero_image > img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+
+.article_grid {
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 50px;
+}
+
+.article_card {
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+}
+
+.article_card > img {
+    width: 100%;
+    height: 700px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+
+.article_card > h3, .article_card > p {
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.st_container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 15px 0 10px 0;
+    gap: 2%;
+}
+
+.st_container > img {
+    width: 10%;
+    height: auto;
+    aspect-ratio: 1/1;
+    max-width: 50px;
+    min-width: 20px;
+}

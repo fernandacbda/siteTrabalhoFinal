@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Nome Site</title>
+	<link rel="stylesheet" href="../css/pagprin.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +14,7 @@
 	<header class="menu_header"> <!-- Alinhados lado ao lado quando usar CSS -->
 		<div class="menu_container">
 			<a href="index.html" class="nome_site solway-bold" >
-				Nome Site
+				NOME SITE
 			</a>
 			<ul>
 				<li>
@@ -29,155 +30,169 @@
 			</ul>
 		</div>
 	</header>
-	<div>
-		<h2>
+	<main class="page_container">
+		<section class="prin_header">
+			<h2>
 			Artigos.
-		</h2>
-		<p>
-			Veja o que nossos usuários estão falando sobre os restaurantes.
-		</p>
+			</h2>
+			<p>
+				Veja o que nossos usuários estão falando sobre os restaurantes.
+			</p>
+		</section>
+		<section class="sc_container"> <!-- Barra de busca e filtros, alinhados lado a lado quando usar CSS -->
+			<form class="sc_form">
+				<label>Buscar: </label>
+				<input type="text" name="busca">
+				<label>Ordenar por: </label>
+				<select name="ordem"> <!-- A ordenação da lista é feita no JS -->
+					<option value="recentes">Mais Recentes</option>
+					<option value="avaliacao">Melhor Avaliados</option>
+					<option value="titulo">Título (A-Z)</option>
+				</select>
+				<input type="submit" value="Buscar" class="solway-regular">
+			</form>
+		</section>
+		<section class="article_list"> <!-- Container da lista, vai usar JS para inserir os artigos do banco depois -->
+			<div class="article_card"> <!-- Alinhados em grade quando usar CSS -->
+				<img src="../img/pizza.jpg" width="200px">
+				<div class="st_container">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+				</div>
+				<h3>
+					<a href="artigo.html">Título do Artigo.</a>
+				</h3>
+				<p>
+					Resumo do Artigo.
+				</p>
+				<p>Nome do Autor</p>
+				<p>Data de Publicação</p>
+			</div>
+			<div class="article_card">
+				<img src="../img/sushi.jpg" width="200px">
+				<div class="st_container">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+				</div>
+				<h3>
+					<a href="artigo.html">Título do Artigo.</a>
+				</h3>
+				<p>
+					Resumo do Artigo.
+				</p>
+				<p>Nome do Autor</p>
+				<p>Data de Publicação</p>
+			</div>
+			<div class="article_card">
+				<img src="../img/lasanha.jpg" width="200px">
+				<div class="st_container">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+				</div>
+				<h3>
+					<a href="artigo.html">Título do Artigo.</a>
+				</h3>
+				<p>
+					Resumo do Artigo.
+				</p>
+				<p>Nome do Autor</p>
+				<p>Data de Publicação</p>
+			</div>
+			<div class="article_card">
+				<img src="../img/cafe.jpg" width="200px">
+				<div class="st_container">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+				</div>
+				<h3>
+					<a href="artigo.html">Título do Artigo.</a>
+				</h3>
+				<p>
+					Resumo do Artigo.
+				</p>
+				<p>Nome do Autor</p>
+				<p>Data de Publicação</p>
+			</div>
+			<div class="article_card">
+				<img src="../img/restaurante.jpg" width="200px">
+				<div class="st_container">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+				</div>
+				<h3>
+					<a href="artigo.html">Título do Artigo.</a>
+				</h3>
+				<p>
+					Resumo do Artigo.
+				</p>
+				<p>Nome do Autor</p>
+				<p>Data de Publicação</p>
+			</div>
+			<div class="article_card">
+				<img src="../img/pizza.jpg" width="200px">
+				<div class="st_container">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+					<img src="../img/staroff.png" width="25px">
+				</div>
+				<h3>
+					<a href="artigo.html">Título do Artigo.</a>
+				</h3>
+				<p>
+					Resumo do Artigo.
+				</p>
+				<p>Nome do Autor</p>
+				<p>Data de Publicação</p>
+			</div>
+		</section>
+		<section class="pag_container"> <!-- Paginação -->
+			<ul>
+				<li>
+					<a href="tela_principal.html">Anterior</a>
+				</li>
+				<li>
+					<a href="tela_principal.html">1</a>
+				</li>
+				<li>
+					<a href="tela_principal.html">2</a>
+				</li>
+				<li>
+					<a href="tela_principal.html">3</a>
+				</li>
+				<li>
+					<a href="tela_principal.html">Próxima</a>
+				</li>
+			</ul>
+		</section>
+	</main>
+	<div> 
+		
 	</div>
-	<div> <!-- Barra de busca e filtros, alinhados lado a lado quando usar CSS -->
-		<form>
-			<label>Buscar: </label>
-			<input type="text" name="busca">
-			<label>Ordenar por: </label>
-			<select name="ordem"> <!-- A ordenação da lista é feita no JS -->
-				<option value="recentes">Mais Recentes</option>
-				<option value="avaliacao">Melhor Avaliados</option>
-				<option value="titulo">Título (A-Z)</option>
-			</select>
-			<input type="submit" value="Buscar">
-		</form>
+	<div> 
+		
 	</div>
-	<div> <!-- Container da lista, vai usar JS para inserir os artigos do banco depois -->
-		<div> <!-- Alinhados em grade quando usar CSS -->
-			<img src="../img/pizza.jpg" width="200px">
-			<div>
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-			</div>
-			<h3>
-				<a href="artigo.html">Título do Artigo.</a>
-			</h3>
-			<p>
-				Resumo do Artigo.
-			</p>
-			<p>Nome do Autor</p>
-			<p>Data de Publicação</p>
-		</div>
-		<div>
-			<img src="../img/sushi.jpg" width="200px">
-			<div>
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staroff.png" width="25px">
-				<img src="../img/staroff.png" width="25px">
-			</div>
-			<h3>
-				<a href="artigo.html">Título do Artigo.</a>
-			</h3>
-			<p>
-				Resumo do Artigo.
-			</p>
-			<p>Nome do Autor</p>
-			<p>Data de Publicação</p>
-		</div>
-		<div>
-			<img src="../img/lasanha.jpg" width="200px">
-			<div>
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staroff.png" width="25px">
-			</div>
-			<h3>
-				<a href="artigo.html">Título do Artigo.</a>
-			</h3>
-			<p>
-				Resumo do Artigo.
-			</p>
-			<p>Nome do Autor</p>
-			<p>Data de Publicação</p>
-		</div>
-		<div>
-			<img src="../img/cafe.jpg" width="200px">
-			<div>
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staroff.png" width="25px">
-				<img src="../img/staroff.png" width="25px">
-			</div>
-			<h3>
-				<a href="artigo.html">Título do Artigo.</a>
-			</h3>
-			<p>
-				Resumo do Artigo.
-			</p>
-			<p>Nome do Autor</p>
-			<p>Data de Publicação</p>
-		</div>
-		<div>
-			<img src="../img/restaurante.jpg" width="200px">
-			<div>
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staroff.png" width="25px">
-			</div>
-			<h3>
-				<a href="artigo.html">Título do Artigo.</a>
-			</h3>
-			<p>
-				Resumo do Artigo.
-			</p>
-			<p>Nome do Autor</p>
-			<p>Data de Publicação</p>
-		</div>
-		<div>
-			<img src="../img/pizza.jpg" width="200px">
-			<div>
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staron.png" width="25px">
-				<img src="../img/staroff.png" width="25px">
-				<img src="../img/staroff.png" width="25px">
-				<img src="../img/staroff.png" width="25px">
-			</div>
-			<h3>
-				<a href="artigo.html">Título do Artigo.</a>
-			</h3>
-			<p>
-				Resumo do Artigo.
-			</p>
-			<p>Nome do Autor</p>
-			<p>Data de Publicação</p>
-		</div>
+	<div> 
+		
 	</div>
-	<div> <!-- Paginação, os números vão ser gerados no JS conforme a quantidade de artigos -->
-		<ul>
-			<li>
-				<a href="tela_principal.html">Anterior</a>
-			</li>
-			<li>
-				<a href="tela_principal.html">1</a>
-			</li>
-			<li>
-				<a href="tela_principal.html">2</a>
-			</li>
-			<li>
-				<a href="tela_principal.html">3</a>
-			</li>
-			<li>
-				<a href="tela_principal.html">Próxima</a>
-			</li>
-		</ul>
+	<div>
+		
 	</div>
 </body>
 </html>

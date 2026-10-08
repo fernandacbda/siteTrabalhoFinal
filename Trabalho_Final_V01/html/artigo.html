@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Nome Site</title>
+	<link rel="stylesheet" href="../css/artigo.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +14,7 @@
 	<header class="menu_header"> <!-- Alinhados lado ao lado quando usar CSS -->
 		<div class="menu_container">
 			<a href="index.html" class="nome_site solway-bold" >
-				Nome Site
+				NOME SITE
 			</a>
 			<ul>
 				<li>
@@ -29,26 +30,30 @@
 			</ul>
 		</div>
 	</header>
-	<div>
-		<h2>
-			Título Artigo
-		</h2>
-		<img src="../img/pizza.jpg" width="100%"> <!-- Editar corte da altura depois, cerca de 200 a 300px, usa CSS -->
-		<p>Nome do Autor</p>
-		<p>Data de Publicação</p>
-		<div>
-			<p>Avaliação: </p>
-			<img src="../img/staron.png" width="25px">
-			<img src="../img/staron.png" width="25px">
-			<img src="../img/staron.png" width="25px">
-			<img src="../img/staron.png" width="25px">
-			<img src="../img/staron.png" width="25px">
-		</div>
-	</div>
-	<div> <!-- Container do Artigo, vai usar JS para inserir o artigo depois -->
-		<p>
-			Texto do Artigo Aqui.
-		</p>
-	</div>
+	<main class="page_container">
+		<section class="artigo_header">
+			<p class="data_pub">Data de Publicação: 01/01/2026</p>
+			<h2 class="titulo">
+				Título Artigo
+			</h2>
+			<p class="autor">Nome do Autor</p>
+			<img src="../img/pizza.jpg"> <!-- Editar corte da altura depois, cerca de 200 a 300px, usa CSS -->
+			<div class="rating">
+				<p>Avaliação: </p>
+				<div class="st_container">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+					<img src="../img/staron.png" width="25px">
+				</div>
+			</div>
+		</section>
+		<section class="artigo_text">
+			<div>
+				Texto do Artigo Aqui.
+			</div>
+		</section>
+	</main>
 </body>
 </html>

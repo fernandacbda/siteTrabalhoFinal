@@ -1,0 +1,72 @@
+.artigo_header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    gap: 16px;
+    color: #292929;
+}
+
+.artigo_header .data_pub {
+    font-size: 18px;
+    margin: 0;
+}
+
+.artigo_header h2 {
+    font-size: 64px;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.artigo_header .autor {
+    font-size: 18px;
+    margin: 0;
+}
+
+.artigo_header > img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+    margin-top: 16px;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    margin-top: 15px;
+}
+
+.rating p {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.st_container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 10px 0 10px 0;
+    gap: 8px;
+}
+
+.st_container > img {
+    width: 10%;
+    height: auto;
+    aspect-ratio: 1/1;
+    max-width: 32px;
+    min-width: 32px;
+}
+
+.artigo_text {
+    width: 100%;
+    margin-top: 30px;
+    font-size: 22px;
+    line-height: 1.6;
+    color: #292929;
+}
