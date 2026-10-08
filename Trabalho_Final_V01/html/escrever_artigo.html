@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Nome Site</title>
+	<link rel="stylesheet" href="../css/escrita.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +14,7 @@
 	<header class="menu_header"> <!-- Alinhados lado ao lado quando usar CSS -->
 		<div class="menu_container">
 			<a href="index.html" class="nome_site solway-bold" >
-				Nome Site
+				NOME SITE
 			</a>
 			<ul>
 				<li>
@@ -29,19 +30,21 @@
 			</ul>
 		</div>
 	</header>
-	<div>
-		<h2>Escrever Artigo</h2>
-		<form>
-			<label>Título: </label>
-			<input type="text" name="nomeArtigo"><br><br>
-			<label>Resumo: </label>
-			<input type="text" name="resumoArtigo"><br><br>
-			<label>Texo do Artigo: </label>
-			<input type="text" name="textoArtigo"><br><br>
-			<label>Imagem de Capa: </label>
-			<input type="button" name="imagemArtigo"><br><br> <!-- Restringir para JPG e PNG, tamanho maximo 8mb -->
-			<input type="submit"> <!-- Manda os dados pro banco e cria uma pagina com o artigo -->
-		</form>
-	</div>
+	<main class="page_container">
+		<section class="form_container">
+			<h2>Escrever Artigo</h2>
+			<form>
+				<label>Título: </label>
+				<input type="text" name="nomeArtigo" class="nome_artigo" maxlength="100"><br><br>
+				<label>Resumo: </label>
+				<textarea type="text" name="resumoArtigo" class="resumo_artigo" maxlength="200"></textarea><br><br>
+				<label>Texo do Artigo: </label>
+				<textarea type="text" name="textoArtigo" class="texto_artigo"></textarea><br><br>
+				<label>Imagem de Capa: </label>
+				<input type="file" name="imagemArtigo"><br><br> <!-- Restringir para JPG e PNG, tamanho maximo 8mb -->
+				<input type="submit" class="solway-regular"> <!-- Manda os dados pro banco e cria uma pagina com o artigo -->
+			</form>
+		</section>
+	</main>
 </body>
 </html>

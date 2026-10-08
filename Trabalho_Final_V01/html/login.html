@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Nome Site</title>
-	<link rel="stylesheet" href="../css/index.css">
+	<link rel="stylesheet" href="../css/forms.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
 	<header class="menu_header"> <!-- Alinhados lado ao lado quando usar CSS -->
 		<div class="menu_container">
 			<a href="index.html" class="nome_site solway-bold" >
-				Nome Site
+				NOME SITE
 			</a>
 			<ul>
 				<li>
@@ -30,29 +30,31 @@
 			</ul>
 		</div>
 	</header>
-	<div>
-		<h2>Faça Login!</h2>
-		<form>
-			<label>Email: </label>
-			<input type="email" name="email"><br><br>
-			<label>Senha: </label>
-			<input type="password" name="senha"><br><br>
-			<input type="submit">
-		</form>
-	</div>
-	<div> <!-- Acho que com botões ficaria melhor, mas precisa de ação JS. -->
-		<ul>
-			<li>
-				<a href="esqueci_senha.html">
-					Esqueci minha senha.
-				</a>
-			</li>
-			<li>
-				<a href="signup.html">
-					Gostaria de me Cadastrar.
-				</a>
-			</li>
-		</ul>
-	</div>
+	<main class="page_container">
+		<section class="form_container">
+			<h2>Faça Login!</h2>
+			<form>
+				<label>Email: </label>
+				<input type="email" name="email"><br><br>
+				<label>Senha: </label>
+				<input type="password" name="senha"><br><br>
+				<input type="submit" class="solway-regular">
+			</form>
+		</section>
+		<section class="links_form">
+			<ul>
+				<li>
+					<a href="esqueci_senha.html">
+						Esqueci minha senha.
+					</a>
+				</li>
+				<li>
+					<a href="signup.html">
+						Gostaria de me Cadastrar.
+					</a>
+				</li>
+			</ul>
+		</section>
+	</main>
 </body>
 </html>

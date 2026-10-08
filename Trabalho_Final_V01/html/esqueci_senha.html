@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Nome Site</title>
+	<link rel="stylesheet" href="../css/forms.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +14,7 @@
 	<header class="menu_header"> <!-- Alinhados lado ao lado quando usar CSS -->
 		<div class="menu_container">
 			<a href="index.html" class="nome_site solway-bold" >
-				Nome Site
+				NOME SITE
 			</a>
 			<ul>
 				<li>
@@ -29,13 +30,29 @@
 			</ul>
 		</div>
 	</header>
-	<div>
-		<h2>Recuperação de Senha</h2>
-		<form>
-			<label>Email: </label>
-			<input type="email" name="email"><br><br>
-			<input type="submit"> <!-- A pessoa recebe um email com um codigo para reset de senha, verificar possibilidade, mas é ação JS. -->
-		</form>
-	</div>
+	<main class="page_container">
+		<section class="form_container">
+			<h2>Recuperação de Senha</h2>
+			<form>
+				<label>Email: </label>
+				<input type="email" name="email"><br><br>
+				<input type="submit" class="solway-regular"> <!-- A pessoa recebe um email com um codigo para reset de senha, verificar possibilidade, mas é ação JS. -->
+			</form>	
+		</section>
+		<section class="links_form">
+			<ul>
+				<li>
+					<a href="signup.html">
+						Gostaria de me Cadastrar.
+					</a>
+				</li>
+				<li>
+					<a href="login.html">
+						Gostaria de Entrar.
+					</a>
+				</li>
+			</ul>
+		</section>
+	</main>
 </body>
 </html>
