@@ -42,6 +42,7 @@
 		</div>
 	</header>
 	<main class="page_container dashboard_content">
+	<button type="button" class="btn_voltar" data-voltar="index.html"><span aria-hidden="true">←</span> Voltar</button>
 	<div class="dashboard_header">
 		<h2>
 			Dashboard.
@@ -73,6 +74,7 @@
 	</div>
 	<div class="dashboard_section"> <!-- Container da tabela, vai usar JS para inserir as linhas do banco depois -->
 		<h2>Meus Artigos</h2>
+		<p id="dashboard-message" class="dashboard_message" role="status" aria-live="polite"></p>
 		<div class="tabela_container">
 			<table class="tabela_artigos">
 				<thead>

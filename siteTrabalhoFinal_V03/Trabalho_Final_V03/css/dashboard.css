@@ -226,6 +226,33 @@
     gap: 8px;
 }
 
+.tabela_artigos .acoes a {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.tabela_artigos .acoes a:hover {
+    text-decoration: none;
+    color: var(--fundo_card);
+}
+
+.dashboard_message {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+}
+
+.dashboard_message:empty {
+    display: none;
+}
+
+.dashboard_message[data-type="error"] {
+    color: #b3261e;
+}
+
+.dashboard_message[data-type="success"] {
+    color: #1e6b32;
+}
+
 .btn_editar,
 .btn_excluir {
     font-family: inherit;

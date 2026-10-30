@@ -24,6 +24,22 @@
     margin: 0;
 }
 
+.artigo_edit_link {
+    padding: 8px 18px;
+    border: 1px solid var(--texto);
+    border-radius: var(--raio_controle);
+    color: var(--texto);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.artigo_edit_link:hover {
+    background-color: var(--texto);
+    color: var(--fundo_card);
+}
+
 .artigo_header .artigo_resumo {
     max-width: 800px;
     margin: 0;

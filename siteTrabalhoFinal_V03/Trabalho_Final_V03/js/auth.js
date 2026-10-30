@@ -1,5 +1,6 @@
 const authApiUrl = new URL("../api/auth.php", document.currentScript?.src || window.location.href).href;
 let currentUserAuthenticated = false;
+let currentUserId = null;
 let loadedArticle = null;
 
 async function requestAuth(action, data = {}) {
@@ -264,18 +265,67 @@ if (articleForm) {
     const coverName = document.querySelector("#cover-name");
     const coverPreviewWrap = document.querySelector("#cover-preview-wrap");
     const coverPreview = document.querySelector("#cover-preview");
+    const editingArticleId = new URLSearchParams(window.location.search).get("id");
     let coverPreviewUrl = null;
+    let removeExistingCover = false;
 
     const clearCoverSelection = () => {
         coverInput.value = "";
         coverName.textContent = "Escolher imagem";
         coverPreview.removeAttribute("src");
         coverPreviewWrap.hidden = true;
+        removeExistingCover = true;
         if (coverPreviewUrl) {
             URL.revokeObjectURL(coverPreviewUrl);
             coverPreviewUrl = null;
         }
     };
+
+    if (editingArticleId) {
+        document.title = "Editar artigo | Nome Site";
+        document.querySelector(".editor_heading h1").textContent = "Editar artigo";
+        document.querySelector("#editor-form-title").textContent = "Editando artigo";
+        const buttons = articleForm.querySelectorAll("button[type='submit']");
+        buttons.forEach((button) => {
+            button.disabled = true;
+        });
+        setFormMessage(articleMessage, "Carregando artigo...", "");
+
+        fetch(`${authApiUrl}?action=article&id=${encodeURIComponent(editingArticleId)}`, {
+            headers: { "Accept": "application/json" },
+            credentials: "same-origin"
+        })
+            .then(async (response) => {
+                const result = await response.json();
+                if (!response.ok) {
+                    throw new Error(result.message || "Não foi possível carregar o artigo.");
+                }
+                return result.article;
+            })
+            .then((article) => {
+                articleForm.elements.title.value = article.title;
+                articleForm.elements.summary.value = article.summary;
+                articleForm.elements.content.value = article.content;
+                articleStatus.value = article.status;
+                document.querySelector("#summary-count").textContent = Array.from(article.summary).length;
+                document.querySelector("#content-count").textContent = Array.from(article.content).length;
+                if (article.cover_image) {
+                    coverPreview.src = article.cover_image;
+                    coverName.textContent = "Trocar imagem";
+                    coverPreviewWrap.hidden = false;
+                }
+                buttons.forEach((button) => {
+                    button.disabled = false;
+                });
+                setFormMessage(articleMessage, "", "");
+            })
+            .catch((error) => {
+                const message = error instanceof TypeError
+                    ? "Não foi possível conectar ao servidor. Verifique se o PHP está ativo."
+                    : error.message;
+                setFormMessage(articleMessage, message, "error");
+            });
+    }
 
     articleForm.querySelectorAll("button[type='submit'][data-status]").forEach((button) => {
         button.addEventListener("click", () => {
@@ -341,7 +391,13 @@ if (articleForm) {
 
         try {
             const formData = new FormData(articleForm);
-            formData.append("action", "create_article");
+            if (editingArticleId) {
+                formData.append("action", "update_article");
+                formData.append("article_id", editingArticleId);
+                formData.append("remove_cover", removeExistingCover ? "1" : "0");
+            } else {
+                formData.append("action", "create_article");
+            }
             const result = await submitArticle(formData);
             window.location.href = articleStatus.value === "published"
                 ? `artigo.html?id=${encodeURIComponent(result.article.id)}`
@@ -397,6 +453,23 @@ if (profilePhotoInput) {
         }
     });
 }
+
+// Volta para a página anterior do site. Se a pessoa chegou por link direto, de outro site
+// ou logo após login/cadastro/salvar artigo, vai para a página definida em data-voltar.
+document.querySelectorAll(".btn_voltar").forEach((button) => {
+    button.addEventListener("click", () => {
+        const referrer = document.referrer ? new URL(document.referrer) : null;
+        const cameFromSite = referrer?.origin === window.location.origin;
+        const cameFromForm = ["/login.html", "/signup.html", "/escrever_artigo.html"]
+            .some((path) => referrer?.pathname.endsWith(path));
+
+        if (cameFromSite && !cameFromForm && window.history.length > 1) {
+            window.history.back();
+            return;
+        }
+        window.location.href = button.dataset.voltar;
+    });
+});
 
 const dashboardNewArticle = document.querySelector("#dashboard-new-article");
 if (dashboardNewArticle) {
@@ -615,11 +688,15 @@ async function loadPublicArticles() {
     const isHomepage = [...articleGrids].some((grid) => grid.classList.contains("homepage_articles"));
     const orderSelect = document.querySelector(".sc_form select[name='ordem']");
     const sort = isHomepage ? "recentes" : (orderSelect?.value || "avaliacao");
+    const search = isHomepage ? "" : (document.querySelector(".sc_form input[name='busca']")?.value.trim() || "");
     const query = new URLSearchParams({
         action: "public_articles",
         source: isHomepage ? "homepage" : "listing",
         sort
     });
+    if (search) {
+        query.set("q", search);
+    }
     const response = await fetch(`${authApiUrl}?${query}`, {
         headers: { "Accept": "application/json" }
     });
@@ -638,7 +715,9 @@ async function loadPublicArticles() {
         if (result.articles.length === 0) {
             const emptyMessage = document.createElement("p");
             emptyMessage.className = "articles_empty";
-            emptyMessage.textContent = "Ainda não há artigos publicados.";
+            emptyMessage.textContent = search
+                ? `Nenhum artigo encontrado para "${search}".`
+                : "Ainda não há artigos publicados.";
             grid.append(emptyMessage);
             return;
         }
@@ -673,6 +752,12 @@ if (articleSortForm) {
     };
 
     articleSortForm.querySelector("select[name='ordem']")?.addEventListener("change", reloadSortedArticles);
+    // Quando a busca é apagada, volta a listar todos os artigos sem precisar clicar em "Buscar".
+    articleSortForm.querySelector("input[name='busca']")?.addEventListener("input", (event) => {
+        if (event.target.value.trim() === "") {
+            reloadSortedArticles();
+        }
+    });
     articleSortForm.addEventListener("submit", (event) => {
         event.preventDefault();
         reloadSortedArticles();
@@ -712,7 +797,9 @@ function renderDashboardArticles(articles) {
                 ? `${formatRating(article.rating_average)} (${Number(article.rating_count) || 0})`
                 : "-";
             const viewsCell = document.createElement("td");
-            viewsCell.textContent = "-";
+            viewsCell.textContent = article.status === "published"
+                ? Number(article.views || 0).toLocaleString("pt-BR")
+                : "-";
 
             const statusCell = document.createElement("td");
             const status = document.createElement("span");
@@ -721,20 +808,60 @@ function renderDashboardArticles(articles) {
             statusCell.append(status);
 
             const actionsCell = document.createElement("td");
+            const actions = document.createElement("div");
+            actions.className = "acoes";
             const articleLink = document.createElement("a");
             articleLink.className = "btn_editar";
             articleLink.href = `artigo.html?id=${encodeURIComponent(article.id)}`;
             articleLink.textContent = article.status === "published" ? "Visualizar" : "Ver rascunho";
-            actionsCell.append(articleLink);
+            const editLink = document.createElement("a");
+            editLink.className = "btn_editar";
+            editLink.href = `escrever_artigo.html?id=${encodeURIComponent(article.id)}`;
+            editLink.textContent = "Editar";
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "btn_excluir";
+            deleteButton.textContent = "Excluir";
+            deleteButton.addEventListener("click", () => deleteDashboardArticle(article, deleteButton));
+            actions.append(articleLink, editLink, deleteButton);
+            actionsCell.append(actions);
             row.append(titleCell, dateCell, ratingCell, viewsCell, statusCell, actionsCell);
             tableBody.append(row);
         });
     }
 
     const stats = document.querySelectorAll(".dashboard_stats .stat_card p");
-    if (stats.length >= 2) {
-        stats[0].textContent = articles.filter((article) => article.status === "published").length;
+    if (stats.length >= 3) {
+        const publishedArticles = articles.filter((article) => article.status === "published");
+        stats[0].textContent = publishedArticles.length;
         stats[1].textContent = articles.filter((article) => article.status === "draft").length;
+        stats[2].textContent = publishedArticles
+            .reduce((total, article) => total + Number(article.views || 0), 0)
+            .toLocaleString("pt-BR");
+    }
+}
+
+async function deleteDashboardArticle(article, button) {
+    if (!window.confirm(`Excluir o artigo "${article.title}"? Esta ação não pode ser desfeita.`)) {
+        return;
+    }
+
+    const message = document.querySelector("#dashboard-message");
+    button.disabled = true;
+    button.textContent = "Excluindo...";
+    setFormMessage(message, "", "");
+
+    try {
+        const result = await requestAuth("delete_article", { article_id: Number(article.id) });
+        await loadMyArticles();
+        setFormMessage(message, result.message, "success");
+    } catch (error) {
+        const errorMessage = error instanceof TypeError
+            ? "Não foi possível conectar ao servidor. Verifique se o PHP está ativo."
+            : error.message;
+        setFormMessage(message, errorMessage, "error");
+        button.disabled = false;
+        button.textContent = "Excluir";
     }
 }
 
@@ -875,6 +1002,22 @@ function renderArticleRating(article) {
     controls.append(prompt, stars);
 }
 
+function renderArticleOwnerActions(article) {
+    if (!article || document.querySelector("#article-edit-link")) {
+        return;
+    }
+    if (currentUserId === null || Number(article.author_id) !== currentUserId) {
+        return;
+    }
+
+    const editLink = document.createElement("a");
+    editLink.id = "article-edit-link";
+    editLink.className = "artigo_edit_link";
+    editLink.href = `escrever_artigo.html?id=${encodeURIComponent(article.id)}`;
+    editLink.textContent = "Editar artigo";
+    document.querySelector(".artigo_header .autor").after(editLink);
+}
+
 if (articleLoadMessage && articleRatingPanel) {
     if (!requestedArticleId) {
         articleLoadMessage.textContent = "Artigo não encontrado. Acesse um artigo publicado pela lista.";
@@ -909,6 +1052,7 @@ if (articleLoadMessage && articleRatingPanel) {
                 }
                 articleLoadMessage.hidden = true;
                 renderArticleRating(article);
+                renderArticleOwnerActions(article);
             })
             .catch((error) => {
                 articleLoadMessage.textContent = error.message;
@@ -949,9 +1093,11 @@ fetch(`${authApiUrl}?action=session`, {
     })
     .then((result) => {
         currentUserAuthenticated = result.authenticated;
+        currentUserId = result.authenticated ? Number(result.user.id) : null;
         updateMenu(result.authenticated);
         if (loadedArticle) {
             renderArticleRating(loadedArticle);
+            renderArticleOwnerActions(loadedArticle);
         }
 
         if (!result.authenticated) {

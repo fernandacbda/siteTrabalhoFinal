@@ -97,6 +97,32 @@ body {
     gap: clamp(32px, 4vw, 48px);
 }
 
+.btn_voltar {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid var(--borda);
+    border-radius: var(--raio_controle);
+    background-color: var(--fundo_card);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn_voltar:hover {
+    background-color: var(--fundo_suave);
+    border-color: var(--texto_suave);
+}
+
+.page_container > .btn_voltar {
+    margin-bottom: -16px;
+}
+
 button,
 input,
 select,

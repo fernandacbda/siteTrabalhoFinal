@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+require __DIR__ . DIRECTORY_SEPARATOR . 'demo_data.php';
+
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
@@ -75,9 +77,14 @@ function getDatabase(): PDO
             content TEXT NOT NULL,
             cover_image TEXT,
             status TEXT NOT NULL CHECK (status IN ('draft', 'published')),
-            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            views INTEGER NOT NULL DEFAULT 0
         )"
     );
+    $articleColumns = $database->query('PRAGMA table_info(articles)')->fetchAll(PDO::FETCH_COLUMN, 1);
+    if (!in_array('views', $articleColumns, true)) {
+        $database->exec('ALTER TABLE articles ADD COLUMN views INTEGER NOT NULL DEFAULT 0');
+    }
     $database->exec(
         "CREATE TABLE IF NOT EXISTS article_ratings (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -90,7 +97,119 @@ function getDatabase(): PDO
         )"
     );
 
+    seedDemoData($database);
+
     return $database;
+}
+
+function validateArticleInput(): array
+{
+    $title = $_POST['title'] ?? null;
+    $summary = $_POST['summary'] ?? null;
+    $content = $_POST['content'] ?? null;
+    $status = $_POST['status'] ?? null;
+
+    $titleLength = is_string($title) ? getUnicodeLength($title) : null;
+    if (!is_string($title) || trim($title) === '' || $titleLength === null || $titleLength > 100) {
+        respond(422, ['message' => 'Informe um título com até 100 caracteres.']);
+    }
+    $summaryLength = is_string($summary) ? getUnicodeLength($summary) : null;
+    if (!is_string($summary) || trim($summary) === '' || $summaryLength === null || $summaryLength > 200) {
+        respond(422, ['message' => 'Informe um resumo com até 200 caracteres.']);
+    }
+    $contentLength = is_string($content) ? getUnicodeLength($content) : null;
+    if (!is_string($content) || trim($content) === '' || $contentLength === null || $contentLength > 20000) {
+        respond(422, ['message' => 'Escreva o artigo com até 20.000 caracteres.']);
+    }
+    if (!in_array($status, ['draft', 'published'], true)) {
+        respond(422, ['message' => 'Escolha se deseja salvar como rascunho ou publicar.']);
+    }
+
+    return [
+        'title' => trim($title),
+        'summary' => trim($summary),
+        'content' => trim($content),
+        'status' => $status,
+    ];
+}
+
+// Salva a capa enviada e retorna o caminho relativo, ou null quando nenhuma imagem foi enviada.
+function saveArticleCover(): ?string
+{
+    $coverUpload = $_FILES['cover'] ?? null;
+    if (!is_array($coverUpload) || $coverUpload['error'] === UPLOAD_ERR_NO_FILE) {
+        return null;
+    }
+
+    if ($coverUpload['error'] !== UPLOAD_ERR_OK) {
+        if (in_array($coverUpload['error'], [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true)) {
+            respond(413, ['message' => 'A imagem de capa deve ter no máximo 2 MB.']);
+        }
+        respond(400, ['message' => 'Não foi possível receber a imagem de capa.']);
+    }
+
+    if ($coverUpload['size'] > 2 * 1024 * 1024) {
+        respond(413, ['message' => 'A imagem de capa deve ter no máximo 2 MB.']);
+    }
+
+    $imageInfo = getimagesize($coverUpload['tmp_name']);
+    $mimeType = $imageInfo['mime'] ?? '';
+    $allowedTypes = [
+        'image/jpeg' => 'jpg',
+        'image/png' => 'png',
+        'image/webp' => 'webp',
+    ];
+    if (!is_array($imageInfo) || !isset($allowedTypes[$mimeType])) {
+        respond(422, ['message' => 'Use uma imagem JPG, PNG ou WebP para a capa.']);
+    }
+
+    $uploadDirectory = getArticleUploadDirectory();
+    if (!is_dir($uploadDirectory) && !mkdir($uploadDirectory, 0755, true) && !is_dir($uploadDirectory)) {
+        throw new RuntimeException('Não foi possível preparar o diretório de capas.');
+    }
+
+    $fileName = bin2hex(random_bytes(16)) . '.' . $allowedTypes[$mimeType];
+    if (!move_uploaded_file($coverUpload['tmp_name'], $uploadDirectory . DIRECTORY_SEPARATOR . $fileName)) {
+        throw new RuntimeException('Não foi possível salvar a imagem de capa.');
+    }
+
+    return '../uploads/articles/' . $fileName;
+}
+
+function getArticleUploadDirectory(): string
+{
+    return dirname(__DIR__) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'articles';
+}
+
+function deleteArticleCover(?string $coverPath): void
+{
+    if (!is_string($coverPath) || !str_starts_with($coverPath, '../uploads/articles/')) {
+        return;
+    }
+
+    $filePath = getArticleUploadDirectory() . DIRECTORY_SEPARATOR . basename($coverPath);
+    if (is_file($filePath)) {
+        unlink($filePath);
+    }
+}
+
+function findOwnArticle(PDO $database, mixed $articleId): array
+{
+    $articleId = filter_var($articleId, FILTER_VALIDATE_INT);
+    if (!$articleId || $articleId < 1) {
+        respond(400, ['message' => 'Informe um artigo válido.']);
+    }
+
+    $statement = $database->prepare(
+        'SELECT id, cover_image, status FROM articles WHERE id = :id AND author_id = :author_id'
+    );
+    $statement->execute([':id' => $articleId, ':author_id' => $_SESSION['user']['id']]);
+    $article = $statement->fetch();
+    if (!$article) {
+        respond(404, ['message' => 'Artigo não encontrado.']);
+    }
+
+    return $article;
 }
 
 try {
@@ -137,9 +256,14 @@ try {
             $sort = is_string($requestedSort) && in_array($requestedSort, ['recentes', 'avaliacao', 'titulo'], true)
                 ? $requestedSort
                 : ($source === 'homepage' ? 'recentes' : 'avaliacao');
-            $limit = $source === 'homepage' ? 50 : 4;
+            $limit = 50;
             $ratingFilter = $source === 'homepage'
                 ? 'AND rating_summary.rating_count > 0'
+                : '';
+            $search = is_string($_GET['q'] ?? null) ? trim($_GET['q']) : '';
+            $searchFilter = $search !== ''
+                ? "AND (articles.title LIKE :search ESCAPE '\\' OR articles.summary LIKE :search ESCAPE '\\'
+                        OR users.name LIKE :search ESCAPE '\\')"
                 : '';
             $orderBy = match ($sort) {
                 'titulo' => 'articles.title COLLATE NOCASE ASC, articles.id DESC',
@@ -164,9 +288,13 @@ try {
                    AND viewer_rating.user_id = :viewer_id
                  WHERE articles.status = 'published'
                    $ratingFilter
+                   $searchFilter
                  ORDER BY $orderBy
                  LIMIT :limit"
             );
+            if ($search !== '') {
+                $statement->bindValue(':search', '%' . addcslashes($search, '\\%_') . '%');
+            }
             $viewerId = $_SESSION['user']['id'] ?? null;
             $statement->bindValue(
                 ':viewer_id',
@@ -185,7 +313,7 @@ try {
 
             $statement = $database->prepare(
                 'SELECT articles.id, articles.title, articles.summary, articles.cover_image,
-                        articles.status, articles.created_at,
+                        articles.status, articles.created_at, articles.views,
                         COALESCE(rating_summary.rating_average, 0) AS rating_average,
                         COALESCE(rating_summary.rating_count, 0) AS rating_count
                  FROM articles
@@ -199,7 +327,7 @@ try {
             );
             $statement->execute([':author_id' => $_SESSION['user']['id']]);
             $recentRatings = $database->prepare(
-                "SELECT article_ratings.rating, article_ratings.created_at,
+                "SELECT article_ratings.rating, article_ratings.updated_at,
                         users.name AS reviewer_name, articles.id AS article_id,
                         articles.title AS article_title
                  FROM article_ratings
@@ -246,6 +374,15 @@ try {
 
             if (!$article) {
                 respond(404, ['message' => 'Artigo não encontrado.']);
+            }
+
+            // Conta uma visualização por sessão, sem contar o próprio autor nem rascunhos.
+            $viewedArticles = $_SESSION['viewed_articles'] ?? [];
+            $isAuthor = (int) $article['author_id'] === ($_SESSION['user']['id'] ?? null);
+            if ($article['status'] === 'published' && !$isAuthor && !in_array($articleId, $viewedArticles, true)) {
+                $database->prepare('UPDATE articles SET views = views + 1 WHERE id = :id')
+                    ->execute([':id' => $articleId]);
+                $_SESSION['viewed_articles'] = [...$viewedArticles, $articleId];
             }
 
             respond(200, ['article' => $article]);
@@ -351,65 +488,9 @@ try {
             respond(401, ['message' => 'Entre na sua conta para escrever um artigo.']);
         }
 
-        $title = $_POST['title'] ?? null;
-        $summary = $_POST['summary'] ?? null;
-        $content = $_POST['content'] ?? null;
-        $status = $_POST['status'] ?? null;
-
-        $titleLength = is_string($title) ? getUnicodeLength($title) : null;
-        if (!is_string($title) || trim($title) === '' || $titleLength === null || $titleLength > 100) {
-            respond(422, ['message' => 'Informe um título com até 100 caracteres.']);
-        }
-        $summaryLength = is_string($summary) ? getUnicodeLength($summary) : null;
-        if (!is_string($summary) || trim($summary) === '' || $summaryLength === null || $summaryLength > 200) {
-            respond(422, ['message' => 'Informe um resumo com até 200 caracteres.']);
-        }
-        $contentLength = is_string($content) ? getUnicodeLength($content) : null;
-        if (!is_string($content) || trim($content) === '' || $contentLength === null || $contentLength > 20000) {
-            respond(422, ['message' => 'Escreva o artigo com até 20.000 caracteres.']);
-        }
-        if (!in_array($status, ['draft', 'published'], true)) {
-            respond(422, ['message' => 'Escolha se deseja salvar como rascunho ou publicar.']);
-        }
-
+        $article = validateArticleInput();
         $database = getDatabase();
-        $coverPath = null;
-        $coverUpload = $_FILES['cover'] ?? null;
-        if (is_array($coverUpload) && $coverUpload['error'] !== UPLOAD_ERR_NO_FILE) {
-            if ($coverUpload['error'] !== UPLOAD_ERR_OK) {
-                if (in_array($coverUpload['error'], [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true)) {
-                    respond(413, ['message' => 'A imagem de capa deve ter no máximo 2 MB.']);
-                }
-                respond(400, ['message' => 'Não foi possível receber a imagem de capa.']);
-            }
-
-            if ($coverUpload['size'] > 2 * 1024 * 1024) {
-                respond(413, ['message' => 'A imagem de capa deve ter no máximo 2 MB.']);
-            }
-
-            $imageInfo = getimagesize($coverUpload['tmp_name']);
-            $mimeType = $imageInfo['mime'] ?? '';
-            $allowedTypes = [
-                'image/jpeg' => 'jpg',
-                'image/png' => 'png',
-                'image/webp' => 'webp',
-            ];
-            if (!is_array($imageInfo) || !isset($allowedTypes[$mimeType])) {
-                respond(422, ['message' => 'Use uma imagem JPG, PNG ou WebP para a capa.']);
-            }
-
-            $uploadDirectory = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'articles';
-            if (!is_dir($uploadDirectory) && !mkdir($uploadDirectory, 0755, true) && !is_dir($uploadDirectory)) {
-                throw new RuntimeException('Não foi possível preparar o diretório de capas.');
-            }
-
-            $fileName = bin2hex(random_bytes(16)) . '.' . $allowedTypes[$mimeType];
-            $destination = $uploadDirectory . DIRECTORY_SEPARATOR . $fileName;
-            if (!move_uploaded_file($coverUpload['tmp_name'], $destination)) {
-                throw new RuntimeException('Não foi possível salvar a imagem de capa.');
-            }
-            $coverPath = '../uploads/articles/' . $fileName;
-        }
+        $coverPath = saveArticleCover();
 
         $statement = $database->prepare(
             'INSERT INTO articles (author_id, title, summary, content, cover_image, status)
@@ -418,25 +499,72 @@ try {
         try {
             $statement->execute([
                 ':author_id' => $_SESSION['user']['id'],
-                ':title' => trim($title),
-                ':summary' => trim($summary),
-                ':content' => trim($content),
+                ':title' => $article['title'],
+                ':summary' => $article['summary'],
+                ':content' => $article['content'],
                 ':cover_image' => $coverPath,
-                ':status' => $status,
+                ':status' => $article['status'],
             ]);
         } catch (Throwable $exception) {
-            if ($coverPath !== null && isset($destination) && is_file($destination)) {
-                unlink($destination);
-            }
+            deleteArticleCover($coverPath);
             throw $exception;
         }
 
         respond(201, [
-            'message' => $status === 'published' ? 'Artigo publicado com sucesso.' : 'Rascunho salvo com sucesso.',
+            'message' => $article['status'] === 'published' ? 'Artigo publicado com sucesso.' : 'Rascunho salvo com sucesso.',
             'article' => [
                 'id' => (int) $database->lastInsertId(),
-                'title' => trim($title),
-                'status' => $status,
+                'title' => $article['title'],
+                'status' => $article['status'],
+            ],
+        ]);
+    }
+
+    if (($_POST['action'] ?? '') === 'update_article') {
+        if (!isset($_SESSION['user']['id'])) {
+            respond(401, ['message' => 'Entre na sua conta para editar um artigo.']);
+        }
+
+        $database = getDatabase();
+        $existingArticle = findOwnArticle($database, $_POST['article_id'] ?? null);
+        $article = validateArticleInput();
+        $newCoverPath = saveArticleCover();
+        $coverPath = $newCoverPath ?? (($_POST['remove_cover'] ?? '') === '1' ? null : $existingArticle['cover_image']);
+
+        // Ao publicar um rascunho, a data de publicação passa a ser o momento da publicação.
+        $publishedNow = $existingArticle['status'] === 'draft' && $article['status'] === 'published';
+        $statement = $database->prepare(
+            'UPDATE articles
+             SET title = :title, summary = :summary, content = :content,
+                 cover_image = :cover_image, status = :status'
+             . ($publishedNow ? ', created_at = CURRENT_TIMESTAMP' : '') .
+            ' WHERE id = :id AND author_id = :author_id'
+        );
+        try {
+            $statement->execute([
+                ':title' => $article['title'],
+                ':summary' => $article['summary'],
+                ':content' => $article['content'],
+                ':cover_image' => $coverPath,
+                ':status' => $article['status'],
+                ':id' => $existingArticle['id'],
+                ':author_id' => $_SESSION['user']['id'],
+            ]);
+        } catch (Throwable $exception) {
+            deleteArticleCover($newCoverPath);
+            throw $exception;
+        }
+
+        if ($coverPath !== $existingArticle['cover_image']) {
+            deleteArticleCover($existingArticle['cover_image']);
+        }
+
+        respond(200, [
+            'message' => $article['status'] === 'published' ? 'Artigo atualizado com sucesso.' : 'Rascunho salvo com sucesso.',
+            'article' => [
+                'id' => (int) $existingArticle['id'],
+                'title' => $article['title'],
+                'status' => $article['status'],
             ],
         ]);
     }
@@ -449,7 +577,7 @@ try {
 
     $action = $input['action'] ?? '';
 
-    if (!in_array($action, ['register', 'login', 'logout', 'update_profile', 'rate_article'], true)) {
+    if (!in_array($action, ['register', 'login', 'logout', 'update_profile', 'rate_article', 'delete_article'], true)) {
         respond(404, ['message' => 'Ação não encontrada.']);
     }
 
@@ -469,6 +597,19 @@ try {
     }
 
     $database = getDatabase();
+
+    if ($action === 'delete_article') {
+        if (!isset($_SESSION['user']['id'])) {
+            respond(401, ['message' => 'Entre na sua conta para excluir um artigo.']);
+        }
+
+        $article = findOwnArticle($database, $input['article_id'] ?? null);
+        $statement = $database->prepare('DELETE FROM articles WHERE id = :id AND author_id = :author_id');
+        $statement->execute([':id' => $article['id'], ':author_id' => $_SESSION['user']['id']]);
+        deleteArticleCover($article['cover_image']);
+
+        respond(200, ['message' => 'Artigo excluído com sucesso.']);
+    }
 
     if ($action === 'rate_article') {
         if (!isset($_SESSION['user']['id'])) {
