@@ -1,0 +1,442 @@
+.perfil_header {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    margin-top: 0;
+    padding: 32px;
+    background-color: var(--fundo_card);
+    border-radius: var(--raio_card);
+    box-shadow: var(--sombra);
+    color: var(--texto);
+}
+
+.perfil_content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 40px;
+}
+
+.perfil_foto {
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    border: 4px solid #ffffff;
+    box-shadow: var(--sombra_hover);
+}
+
+.perfil_foto_controle {
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+.perfil_foto_seletor {
+    position: relative;
+    display: block;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+}
+
+.perfil_foto_seletor span {
+    position: absolute;
+    inset: auto 4px 4px;
+    padding: 7px 4px;
+    color: #ffffff;
+    background-color: rgba(41, 41, 41, 0.78);
+    border-radius: 0 0 80px 80px;
+    font-size: 13px;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.perfil_foto_seletor:hover span,
+.perfil_foto_seletor:focus-within span {
+    opacity: 1;
+}
+
+.perfil_foto_input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.perfil_foto_controle:focus-within .perfil_foto_seletor {
+    outline: 3px solid var(--texto);
+    outline-offset: 4px;
+    border-radius: 50%;
+}
+
+.foto_mensagem {
+    max-width: 180px;
+    margin: 10px 0 0;
+    font-size: 13px;
+    color: var(--texto_suave);
+}
+
+.foto_mensagem[data-type="error"] {
+    color: #b3261e;
+}
+
+.foto_mensagem[data-type="success"] {
+    color: #1e6b32;
+}
+
+.perfil_dados {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.perfil_dados h2 {
+    font-size: clamp(30px, 4vw, 42px);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.perfil_dados p {
+    font-size: 18px;
+    margin: 0;
+    color: var(--texto_suave);
+}
+
+.perfil_dados .bio {
+    margin-top: 8px;
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--texto);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.perfil_resumo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    width: 100%;
+    margin-top: 0;
+    color: var(--texto);
+}
+
+.stat_card {
+    flex: 1 1 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 28px 16px;
+    background-color: var(--fundo_card);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio_card);
+    box-shadow: var(--sombra);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat_card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra_hover);
+}
+
+.stat_card h3 {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    color: var(--texto_suave);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat_card p {
+    font-size: 52px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.st_container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px 0 0 0;
+    gap: 4px;
+}
+
+.st_container > img {
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    aspect-ratio: 1/1;
+    max-width: 28px;
+    min-width: 28px;
+    object-fit: contain;
+}
+
+.estrelas {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.estrelas img {
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+}
+
+.perfil_section {
+    width: 100%;
+    margin-top: 0;
+    color: var(--texto);
+}
+
+.perfil_forms {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.perfil_forms .perfil_section {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.perfil_section > h2 {
+    font-size: 28px;
+    margin: 0 0 24px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--texto);
+    display: inline-block;
+}
+
+.form_perfil {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    min-width: 0;
+    flex: 1;
+    padding: 32px;
+    background-color: var(--fundo_card);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio_card);
+    box-shadow: var(--sombra);
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.campo label {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--texto);
+}
+
+.campo input[type="text"],
+.campo input[type="email"],
+.campo input[type="password"],
+.campo textarea {
+    font-family: inherit;
+    font-size: 17px;
+    color: var(--texto);
+    padding: 12px 16px;
+    background-color: var(--fundo_suave);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio_controle);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.campo textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+    background-color: var(--fundo_card);
+    border-color: var(--texto);
+    box-shadow: 0 0 0 3px rgba(41, 41, 41, 0.12);
+}
+
+.perfil_mensagem {
+    margin: 0;
+    font-size: 14px;
+    color: var(--texto_suave);
+}
+
+.perfil_mensagem[data-type="error"] {
+    color: #b3261e;
+}
+
+.perfil_mensagem[data-type="success"] {
+    color: #1e6b32;
+}
+
+.campo input[type="file"] {
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--texto_suave);
+}
+
+.campo input[type="file"]::file-selector-button {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--texto);
+    background-color: transparent;
+    border: 1px solid var(--texto);
+    border-radius: var(--raio_controle);
+    padding: 8px 18px;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.campo input[type="file"]::file-selector-button:hover {
+    background-color: var(--texto);
+    color: var(--fundo_card);
+}
+
+.btn_primary {
+    align-self: flex-start;
+    background-color: var(--texto);
+    color: var(--fundo_card);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--raio_controle);
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn_primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra_hover);
+}
+
+.artigos_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+    margin-bottom: 60px;
+}
+
+.articles_empty {
+    margin: 0;
+    color: var(--texto_suave);
+    font-size: 16px;
+}
+
+.artigos_grid .articles_empty {
+    grid-column: 1 / -1;
+    padding: 24px;
+    border: 1px dashed var(--borda);
+    border-radius: var(--raio_card);
+    text-align: center;
+}
+
+.artigo_card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 16px 22px 16px;
+    background-color: var(--fundo_card);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio_card);
+    box-shadow: var(--sombra);
+    color: var(--texto);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.artigo_card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra_hover);
+}
+
+.artigo_card:focus-visible {
+    outline: 3px solid rgba(41, 41, 41, 0.35);
+    outline-offset: 3px;
+}
+
+.artigo_card > img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: var(--raio_controle);
+    margin-bottom: 4px;
+}
+
+.artigo_card h3 {
+    font-size: 22px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.artigo_card p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--texto);
+}
+
+.artigo_card .data_pub {
+    font-size: 14px;
+    color: var(--texto_suave);
+}
+
+@media (max-width: 768px) {
+    .perfil_header {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+        padding: 24px;
+    }
+
+    .perfil_dados h2 {
+        font-size: 34px;
+    }
+
+    .perfil_section > h2 {
+        font-size: 24px;
+    }
+
+    .stat_card p {
+        font-size: 40px;
+    }
+
+    .form_perfil {
+        padding: 20px;
+    }
+
+    .perfil_forms {
+        grid-template-columns: 1fr;
+    }
+
+    .btn_primary {
+        align-self: stretch;
+    }
+}

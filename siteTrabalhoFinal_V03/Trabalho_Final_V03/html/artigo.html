@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Nome Site</title>
+	<link rel="stylesheet" href="../css/artigo.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Solway:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+	<script src="../js/auth.js" defer></script>
+</head>
+<body class="solway-regular">
+	<header class="menu_header"> <!-- Alinhados lado ao lado quando usar CSS -->
+		<div class="menu_container">
+			<a href="index.html" class="nome_site solway-bold" >
+				NOME SITE
+			</a>
+			<ul>
+				<li>
+					<a href="signup.html">
+						Cadastre-se
+					</a>
+				</li>
+				<li>
+					<a href="login.html">
+						Entrar
+					</a>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<main class="page_container">
+		<section class="artigo_header">
+			<p class="data_pub"></p>
+			<h2 class="titulo"></h2>
+			<p class="autor"></p>
+			<p class="artigo_resumo"></p>
+			<img src="" alt="" hidden>
+			<p id="article-load-message" role="status" aria-live="polite">Carregando artigo...</p>
+			<div id="article-rating" class="rating" hidden>
+				<h3>Avaliação do artigo</h3>
+				<div id="article-rating-summary"></div>
+				<div id="article-rating-controls"></div>
+				<p id="rating-message" role="status" aria-live="polite"></p>
+			</div>
+		</section>
+		<section class="artigo_text">
+			<div></div>
+		</section>
+	</main>
+</body>
+</html>

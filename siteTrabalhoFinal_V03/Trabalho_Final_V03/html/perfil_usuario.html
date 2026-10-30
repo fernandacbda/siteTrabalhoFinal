@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Nome Site</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/perfil_usuario.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Solway:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+	<script src="../js/auth.js" defer></script>
+</head>
+<body class="solway-regular">
+	<header class="menu_header"> <!-- Alinhados lado ao lado quando usar CSS -->
+		<div class="menu_container"> <!-- Menu de usuário logado, o JS troca esse menu pelo de visitante quando não tem login -->
+			<a href="index.html" class="nome_site solway-bold">
+				Nome Site
+			</a>
+			<ul>
+				<li>
+					<a href="tela_principal.html">
+						Artigos
+					</a>
+				</li>
+				<li>
+					<a href="escrever_artigo.html">
+						Escrever Artigo
+					</a>
+				</li>
+				<li>
+					<a href="dashboard.html">
+						Dashboard
+					</a>
+				</li>
+				<li>
+					<a href="index.html">
+						Sair
+					</a>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<main class="page_container perfil_content">
+	<div class="perfil_header"> <!-- Foto e dados alinhados lado a lado quando usar CSS -->
+		<div class="perfil_foto_controle">
+			<label class="perfil_foto_seletor" for="perfil-foto">
+				<img src="../img/restaurante.jpg" class="perfil_foto" alt="Foto de perfil">
+				<span>Alterar foto</span>
+			</label>
+			<input id="perfil-foto" class="perfil_foto_input" type="file" accept="image/jpeg,image/png,image/webp">
+			<p id="perfil-foto-mensagem" class="foto_mensagem" role="status" aria-live="polite"></p>
+		</div>
+		<div class="perfil_dados">
+			<h2>
+				Nome do Usuário
+			</h2>
+			<p>Email do Usuário</p>
+			<p class="data_cadastro">Membro desde: carregando...</p>
+			<p class="bio">
+				Biografia ainda não informada.
+			</p>
+		</div>
+	</div>
+	<div class="perfil_resumo"> <!-- Resumo do perfil, alinhados lado a lado quando usar CSS -->
+		<div class="stat_card">
+			<h3>Artigos Publicados</h3>
+			<p>0</p>
+		</div>
+		<div class="stat_card">
+			<h3>Média das Avaliações</h3>
+			<div class="average-rating" data-average="0" data-count="0"></div>
+		</div>
+		<div class="stat_card">
+			<h3>Restaurantes Avaliados</h3>
+			<p>0</p>
+		</div>
+	</div>
+	<div class="perfil_forms">
+	<div class="perfil_section">
+		<h2>Editar Perfil</h2>
+		<form id="profile-form" class="form_perfil">
+			<div class="campo">
+				<label for="profile-name">Nome: </label>
+				<input id="profile-name" type="text" name="name" maxlength="100" required>
+			</div>
+			<div class="campo">
+				<label for="profile-email">Email: </label>
+				<input id="profile-email" type="email" name="email" maxlength="254" required>
+			</div>
+			<div class="campo">
+				<label for="profile-bio">Biografia: </label>
+				<textarea id="profile-bio" name="bio" maxlength="500" rows="4"></textarea>
+			</div>
+			<p id="profile-message" class="perfil_mensagem" role="status" aria-live="polite"></p>
+			<input type="submit" class="btn_primary" value="Salvar alterações"> <!-- Atualiza os dados do usuário no banco -->
+		</form>
+	</div>
+	<div class="perfil_section">
+		<h2>Alterar Senha</h2>
+		<form class="form_perfil">
+			<div class="campo">
+				<label>Senha Atual: </label>
+				<input type="password" name="senhaAtual">
+			</div>
+			<div class="campo">
+				<label>Nova Senha: </label>
+				<input type="password" name="senhaNova">
+			</div>
+			<div class="campo">
+				<label>Confirmar Nova Senha: </label>
+				<input type="password" name="senhaNovaC">
+			</div>
+			<input type="submit" class="btn_primary" value="Alterar senha"> <!-- Conferir se as duas senhas novas são iguais no JS -->
+		</form>
+	</div>
+	</div>
+	<div class="perfil_section">
+		<h2>Meus Artigos</h2>
+		<p id="article-list-message" class="articles_empty" role="status" aria-live="polite" hidden></p>
+		<div class="artigos_grid"></div>
+	</div>
+	</main>
+</body>
+</html>

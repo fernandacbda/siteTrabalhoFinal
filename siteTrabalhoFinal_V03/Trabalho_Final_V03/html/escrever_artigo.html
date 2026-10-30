@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Escrever artigo | Nome Site</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/escrita.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Solway:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+	<script src="../js/auth.js" defer></script>
+</head>
+<body class="solway-regular">
+	<header class="menu_header">
+		<div class="menu_container">
+			<a href="index.html" class="nome_site solway-bold">Nome Site</a>
+			<ul>
+				<li><a href="tela_principal.html">Artigos</a></li>
+				<li><a href="perfil_usuario.html">Perfil</a></li>
+				<li><a href="dashboard.html">Dashboard</a></li>
+				<li><a href="index.html">Sair</a></li>
+			</ul>
+		</div>
+	</header>
+	<main class="page_container article_editor_page">
+		<header class="editor_heading">
+			<p class="editor_eyebrow">Compartilhe sua experiência</p>
+			<h1>Escrever artigo</h1>
+			<p>Conte sobre sua visita e ajude outras pessoas a descobrir novos sabores.</p>
+		</header>
+		<section class="editor_panel" aria-labelledby="editor-form-title">
+			<h2 id="editor-form-title">Novo artigo</h2>
+			<form id="article-form" class="article_form">
+				<div class="article_field">
+					<label for="article-title">Título</label>
+					<input id="article-title" name="title" type="text" maxlength="100" placeholder="Dê um título ao seu artigo" required>
+					<span class="field_hint">Até 100 caracteres</span>
+				</div>
+				<div class="article_field">
+					<label for="article-summary">Resumo</label>
+					<textarea id="article-summary" name="summary" maxlength="200" rows="3" placeholder="Apresente seu artigo em poucas palavras" required></textarea>
+					<span class="field_hint"><span id="summary-count">0</span>/200 caracteres</span>
+				</div>
+				<div class="article_field">
+					<label for="article-content">Texto do artigo</label>
+					<textarea id="article-content" name="content" maxlength="20000" rows="12" placeholder="Escreva sua experiência em detalhes..." required></textarea>
+					<span class="field_hint"><span id="content-count">0</span>/20.000 caracteres</span>
+				</div>
+				<div class="article_field">
+					<span class="field_label">Imagem de capa <span class="field_optional">(opcional)</span></span>
+					<label class="cover_picker" for="article-cover">
+						<span class="cover_picker_icon" aria-hidden="true">＋</span>
+						<span class="cover_picker_text">
+							<strong id="cover-name">Escolher imagem</strong>
+							<small>JPG, PNG ou WebP · até 2 MB</small>
+						</span>
+						<input id="article-cover" class="cover_input" name="cover" type="file" accept="image/jpeg,image/png,image/webp">
+					</label>
+					<div id="cover-preview-wrap" class="cover_preview_wrap" hidden>
+						<img id="cover-preview" class="cover_preview" alt="Prévia da imagem de capa selecionada">
+						<button id="cover-remove" class="cover_remove" type="button">Remover imagem</button>
+					</div>
+				</div>
+				<input id="article-status" type="hidden" name="status" value="draft">
+				<p id="article-message" class="article_message" role="status" aria-live="polite"></p>
+				<div class="article_actions">
+					<button class="article_button article_button_secondary" type="submit" data-status="draft">Salvar rascunho</button>
+					<button class="article_button article_button_primary" type="submit" data-status="published">Publicar artigo</button>
+				</div>
+			</form>
+		</section>
+	</main>
+</body>
+</html>

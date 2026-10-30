@@ -1,0 +1,323 @@
+.auth_page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth_layout {
+    display: grid;
+    flex: 1;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.auth_panel {
+    --auth-panel-padding: clamp(24px, 6vw, 88px);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    padding: 24px var(--auth-panel-padding) 0;
+}
+
+.auth_panel .page_container {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    padding: 24px 0 0;
+}
+
+.form_container {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 18px;
+    background-color: var(--fundo_card);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio_card) var(--raio_card) 0 0;
+    border-bottom: 0;
+    box-shadow: var(--sombra);
+    padding: 18px clamp(18px, 3vw, 36px);
+}
+
+.form_container h2 {
+    margin: 0 0 16px;
+    font-size: clamp(23px, 2.4vw, 30px);
+    text-align: center;
+}
+
+.form_message {
+    width: 100%;
+    margin: 0 0 12px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.form_message:empty {
+    display: none;
+}
+
+.form_message[data-type="error"] {
+    color: #b3261e;
+}
+
+.form_message[data-type="success"] {
+    color: #1e6b32;
+}
+
+.form_container form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form_container label {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form_container input {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    font-size: 16px;
+    border: 1px solid var(--borda);
+    border-radius: var(--raio_controle);
+    background-color: var(--fundo_suave);
+    color: var(--texto);
+    box-sizing: border-box;
+}
+
+.form_container input:not([type="submit"]):focus {
+    border-color: var(--texto);
+    outline: none;
+    background-color: var(--fundo_card);
+    box-shadow: 0 0 0 3px rgba(41, 41, 41, 0.12);
+}
+
+.form_container input[type="submit"] {
+    width: 100%;
+    height: 44px;
+    padding: 0 15px;
+    font-size: 16px;
+    border: 1px solid var(--texto);
+    border-radius: var(--raio_controle);
+    background-color: var(--texto);
+    box-sizing: border-box;
+    color: white;
+    margin-top: 10px;
+    align-self: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.form_container input[type="submit"]:hover {
+    background-color: var(--fundo_suave);
+    border-color: var(--fundo_suave);
+    color: var(--texto);
+}
+
+.form_container input[type="submit"]:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+.links_form {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 0;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--texto);
+    padding: 12px clamp(18px, 3vw, 36px);
+    border-radius: 0 0 var(--raio_card) var(--raio_card);
+}
+
+.links_form ul {
+    list-style: none;
+    padding: 15px 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 15px;
+}
+
+.links_form li {
+    width: 100%;
+}
+
+.links_form a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: var(--texto);
+    background-color: var(--fundo_card);
+    padding: 9px 14px;
+    font-size: 16px;
+    border-radius: var(--raio_controle);
+}
+
+.links_form a:hover {
+    background-color: var(--fundo_suave);
+    color: var(--texto);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.auth_image {
+    min-height: 0;
+    background-image:
+        linear-gradient(rgba(25, 16, 8, 0.16), rgba(25, 16, 8, 0.16)),
+        url("../img/pagprin.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+@media (max-width: 760px) {
+    .auth_layout {
+        grid-template-columns: 1fr;
+    }
+
+    .auth_panel {
+        --auth-panel-padding: clamp(20px, 6vw, 48px);
+        min-height: 0;
+        padding: 16px var(--auth-panel-padding) 0;
+    }
+
+    .auth_image {
+        display: none;
+    }
+
+    .auth_panel .page_container {
+        padding-top: 16px;
+    }
+}
+
+@media (max-height: 700px) {
+    .auth_panel {
+        padding-top: 12px;
+    }
+
+    .auth_panel .page_container {
+        padding-top: 12px;
+    }
+
+    .form_container {
+        padding: 8px clamp(14px, 3vw, 24px);
+    }
+
+    .form_container h2 {
+        margin-bottom: 6px;
+        font-size: clamp(20px, 5vw, 24px);
+    }
+
+    .form_message {
+        margin-bottom: 6px;
+        font-size: 13px;
+    }
+
+    .form_container form {
+        gap: 4px;
+    }
+
+    .form_container label {
+        font-size: 14px;
+    }
+
+    .form_container input {
+        height: 34px;
+        font-size: 15px;
+    }
+
+    .form_container input[type="submit"] {
+        height: 36px;
+        margin-top: 4px;
+        font-size: 16px;
+    }
+
+    .links_form {
+        padding-block: 10px;
+    }
+}
+
+@media (max-height: 560px) {
+    .auth_page .menu_container {
+        gap: 4px;
+        padding-top: 8px;
+    }
+
+    .auth_page .nome_site {
+        font-size: 26px;
+    }
+
+    .auth_page .menu_container ul a {
+        padding: 6px;
+        font-size: 14px;
+    }
+
+    .auth_panel {
+        padding-top: 8px;
+    }
+
+    .auth_panel .page_container {
+        padding-top: 8px;
+    }
+
+    .form_container {
+        padding: 6px 12px;
+    }
+
+    .form_container h2 {
+        margin-bottom: 4px;
+        font-size: 20px;
+    }
+
+    .form_message {
+        margin-bottom: 4px;
+        font-size: 12px;
+    }
+
+    .form_container form {
+        gap: 2px;
+    }
+
+    .form_container label {
+        font-size: 13px;
+    }
+
+    .form_container input {
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .form_container input[type="submit"] {
+        height: 32px;
+        margin-top: 2px;
+        font-size: 16px;
+    }
+
+    .links_form a {
+        font-size: 16px;
+    }
+}
